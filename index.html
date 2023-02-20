@@ -64,6 +64,9 @@
 </head>
 <body>
 	<div id="timer-container">
+		<audio id="work_audio">
+			<source src="./audio/work.mp3" type="audio/mp3">
+		</audio>
 		<h1>作業用タイマー</h1>
         <div id="count"></div>
 		<div id="timer"></div>
@@ -145,6 +148,11 @@
                  count.innerHTML = cycles + "回目";
             }
             return;
+		}
+
+		//audio
+		function workAudio() {
+			document.getElementById('work_audio').play();
 		}
 	</script>
 
