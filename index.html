@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>作業用タイマー</title>
+	<style>
+		body {
+			background-color: #F1D99E; /* ページの背景色を変更 */
+		}
+		#timer-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		#count {
+            background-color: #F9D478;
+            padding: 2px 15px;
+			border-radius: 10px;
+			font-size: 2rem;
+            box-shadow: 0px 5px 0px #E1BE67;
+		}
+		#timer {
+			font-size: 5rem;
+		}
+		#timer-buttons {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			margin-top: 10px;
+            cursor: pointer;
+		}
+		#timer-buttons button {
+			margin: 0 10px;
+			padding: 10px 20px; /* ボタンの余白を追加 */
+			border: none;
+			border-radius: 5px; /* ボタンの角を丸める */
+			color: #FFFFFF; /* ボタンの文字色を白に変更 */
+			box-shadow: 0px 3px 0px #D17C8E; /* ボタンに影をつける */
+			transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* ボタンにアニメーションを追加 */
+            cursor: pointer;
+		}
+		#timer-buttons button.start {
+			background-color: #2ECC71; /* スタートボタンの背景色を変更 */
+			box-shadow: 0px 3px 0px #27AE60; /* スタートボタンに影をつける */
+		}
+		#timer-buttons button.reset {
+			background-color: #F28D9F; /* リセットボタンの背景色を変更 */
+			box-shadow: 0px 3px 0px #D17C8E; /* リセットボタンに影をつける */
+		}
+		#timer-buttons button:hover {
+			box-shadow: 0px 5px 0px #1A7340; /* ボタンに影をつける（ホバー時） */
+		}
+		#timer-buttons button.start:hover {
+			background-color: #239D58; /* スタートボタンの背景色を変更（ホバー時） */
+		}
+		#timer-buttons button.reset:hover {
+			background-color: #E35D6A; /* リセットボタンの背景色を変更（ホバー時） */
+            box-shadow: 0px 5px 0px #D44C59; /* リセットボタンに影をつける（ホバー時） */
+            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* ボタンにアニメーションを追加 */
+		}
+	</style>
+</head>
+<body>
+	<div id="timer-container">
+		<h1>作業用タイマー</h1>
+        <div id="count"></div>
+		<div id="timer"></div>
+		<div id="timer-buttons">
+			<button class="start" onclick="clickStart()">スタート</button>
+			<button class="reset" onclick="resetTimer()">リセット</button>
+		</div>
+	</div>
+
+	<script>
+		var workTime = 30; // 作業時間（分）
+		var breakTime = 5; // 休憩時間（分）
+		var isWorking = true; // 現在の状態（作業中か休憩中か）
+		var timerInterval; // setInterval()で使用する変数
+		var minutes; // 分
+		var seconds; // 秒
+        var cycles = 0;  // サイクル数
+        timer.innerHTML = "開始前 - 00:00"
+        count.innerHTML = cycles + "回目";
+        
+        //スタートボタンをクリックしたときの関数
+        function clickStart() {
+            if(cycles == 0){
+                startTimer();
+            }return;
+        }
+
+		// タイマーを更新する関数
+		function updateTimer() {
+			var timer = document.getElementById("timer");
+            count.innerHTML = cycles + "回目";
+			timer.innerHTML = (isWorking ? "作業中" : "休憩中") + " - " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+		}
+
+		// タイマーを開始する関数
+		function startTimer() {
+			// 現在の状態に応じて時間を設定
+			var time = isWorking ? workTime : breakTime;
+			minutes = time;
+			seconds = 0;
+            if(isWorking == true){
+                        cycles ++;
+            }
+
+			// タイマーを更新する
+			updateTimer();
+
+			// タイマーを開始する
+			timerInterval = setInterval(function() {
+				// 1秒減らす
+				seconds--;
+				if (seconds < 0) {
+					minutes--;
+					seconds = 59;
+				}
+
+				// タイマーを更新する
+				updateTimer();
+
+				// タイマーが0になったら状態を切り替える
+				if (minutes === 0 && seconds === 0) {
+					isWorking = !isWorking;
+                    clearInterval(timerInterval);
+					startTimer();
+				}
+			}, 1000);
+		}
+
+		// タイマーをリセットする関数
+		function resetTimer() {
+            if(cycles > 0){
+                 isWorking = true;
+                 minutes = workTime;
+			     seconds = 0;
+			     updateTimer();
+			     clearInterval(timerInterval);
+                 timer.innerHTML = "開始前 - 00:00";
+                 cycles = 0;
+                 count.innerHTML = cycles + "回目";
+            }
+            return;
+		}
+	</script>
+
