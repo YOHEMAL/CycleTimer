@@ -4,7 +4,9 @@
 	<title>作業用タイマー</title>
 	<style>
 		body {
-			background-color: #F1D99E; /* ページの背景色を変更 */
+			background: url('back.jpg')repeat-x;
+			background-position: center;
+			background-size: cover;
 		}
 		#timer-container {
 			display: flex;
@@ -20,8 +22,18 @@
 			font-size: 2rem;
             box-shadow: 0px 5px 0px #E1BE67;
 		}
+		#countbox{
+			
+			height: 110px
+		}
+		#timerbox {
+			height: 230px;
+		}
 		#timer {
 			font-size: 5rem;
+			background: rgba(255, 255, 255, 0.85) ;
+			border-radius: 10px;
+			padding: 30px 60px;
 		}
 		#timer-buttons {
 			display: flex;
@@ -32,14 +44,16 @@
             cursor: pointer;
 		}
 		#timer-buttons button {
-			margin: 0 10px;
-			padding: 10px 20px; /* ボタンの余白を追加 */
+			margin: 0 50px;
+			padding: 10px 50px; /* ボタンの余白を追加 */
 			border: none;
 			border-radius: 5px; /* ボタンの角を丸める */
 			color: #FFFFFF; /* ボタンの文字色を白に変更 */
 			box-shadow: 0px 3px 0px #D17C8E; /* ボタンに影をつける */
 			transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* ボタンにアニメーションを追加 */
             cursor: pointer;
+			font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+			font-size: 2.5em;
 		}
 		#timer-buttons button.start {
 			background-color: #2ECC71; /* スタートボタンの背景色を変更 */
@@ -68,11 +82,15 @@
 			<source src="./audio/work.mp3" type="audio/mp3">
 		</audio>
 		<h1>作業用タイマー</h1>
-        <div id="count"></div>
-		<div id="timer"></div>
+        <div id="countbox">
+			<div id="count"></div>
+		</div>
+		<div id="timerbox">
+			<div id="timer"></div>
+		</div>
 		<div id="timer-buttons">
-			<button class="start" onclick="clickStart()">スタート</button>
-			<button class="reset" onclick="resetTimer()">リセット</button>
+			<button class="start" onclick="clickStart()">START</button>
+			<button class="reset" onclick="resetTimer()">RESET</button>
 		</div>
 	</div>
 
@@ -156,4 +174,5 @@
 			document.getElementById('work_audio').play();
 		}
 	</script>
+	
 
