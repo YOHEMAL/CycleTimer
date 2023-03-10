@@ -56,6 +56,10 @@
 			background-color: #2ECC71; /* スタートボタンの背景色を変更 */
 			box-shadow: 0px 3px 0px #27AE60; /* スタートボタンに影をつける */
 		}
+		#timer-buttons button.pause {
+			background-color: #f3bc23; /* スタートボタンの背景色を変更 */
+			box-shadow: 0px 3px 0px #ad861a; /* スタートボタンに影をつける */
+		}
 		#timer-buttons button.reset {
 			background-color: #F28D9F; /* リセットボタンの背景色を変更 */
 			box-shadow: 0px 3px 0px #D17C8E; /* リセットボタンに影をつける */
@@ -65,6 +69,10 @@
 		}
 		#timer-buttons button.start:hover {
 			background-color: #239D58; /* スタートボタンの背景色を変更（ホバー時） */
+		}
+		#timer-buttons button.pause:hover {
+			background-color: #dbaa23; /* スタートボタンの背景色を変更（ホバー時） */
+			box-shadow: 0px 5px 0px #ad861a; /* ボタンに影をつける（ホバー時） */
 		}
 		#timer-buttons button.reset:hover {
 			background-color: #E35D6A; /* リセットボタンの背景色を変更（ホバー時） */

@@ -18,6 +18,7 @@
 		</div>
 		<div id="timer-buttons">
 			<button class="start" onclick="clickStart()">START</button>
+			<!-- <button class="pause" onclick="pauseTimer()"> <div id="pauseText"></div> </button> --> 
 			<button class="reset" onclick="resetTimer()">RESET</button>
 		</div>
 	</div>
@@ -30,8 +31,16 @@
 		var minutes; // 分
 		var seconds; // 秒
         var cycles = 0;  // サイクル数
+		var pause = false;
         timer.innerHTML = "開始前 - 00:00"
         count.innerHTML = cycles + "回目";
+		// pauseText.innerHTML = "PAUSE"
+
+		document.body.onkeyup = function(e) {
+  			if (e.keyCode == 32) {
+   			 pauseTimer();
+ 			 }
+		};
         
         //スタートボタンをクリックしたときの関数
         function clickStart() {
@@ -39,6 +48,45 @@
                 startTimer();
             }return;
         }
+
+		function resumeTimer(){
+				// タイマーを開始する
+				timerInterval = setInterval(function() {
+				// 1秒減らす
+				seconds--;
+				if (seconds < 0) {
+					minutes--;
+					seconds = 59;
+				}
+
+				// タイマーを更新する
+				updateTimer();
+
+				// タイマーが0になったら状態を切り替える
+				if (minutes === 0 && seconds === 0) {
+					isWorking = !isWorking;
+                    clearInterval(timerInterval);
+					startTimer();
+					workAudio();
+				}
+			}, 1000);
+			}
+
+		//一時停止ボタンを押した時の関数
+		function pauseTimer() {
+			if(pause == false){
+				clearInterval(timerInterval);
+				pause = true;
+				// pauseText.innerHTML = "RESUME"
+				timer.innerHTML = "<span style='color: red;'>停止中</span>" + " - " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+			}else{
+				
+				timer.innerHTML = (isWorking ? "作業中" : "休憩中") + " - " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+				resumeTimer();
+				// pauseText.innerHTML = "PAUSE"
+				pause = false;
+			}
+		}
 
 		// タイマーを更新する関数
 		function updateTimer() {
@@ -60,26 +108,10 @@
 			// タイマーを更新する
 			updateTimer();
 
-			// タイマーを開始する
-			timerInterval = setInterval(function() {
-				// 1秒減らす
-				seconds--;
-				if (seconds < 0) {
-					minutes--;
-					seconds = 59;
-				}
+			resumeTimer();
+			
+			
 
-				// タイマーを更新する
-				updateTimer();
-
-				// タイマーが0になったら状態を切り替える
-				if (minutes === 0 && seconds === 0) {
-					isWorking = !isWorking;
-                    clearInterval(timerInterval);
-					startTimer();
-					workAudio();
-				}
-			}, 1000);
 		}
 
 		// タイマーをリセットする関数
