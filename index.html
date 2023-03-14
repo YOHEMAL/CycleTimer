@@ -65,23 +65,23 @@
 						seconds = 59;
 					}
 
-					// タイマーを更新する
-					updateTimer();
+				// タイマーを更新する
+				updateTimer();
 
 
 					// タイマーが0になったら状態を切り替える
-					if (minutes === 0 && seconds === 0) {
-						isWorking = !isWorking;
-               	     clearInterval(timerInterval);
-						startTimer();
-						workAudio();
-					} else {
-						setTimeout(function() {
-							
-						},1000);
-					}
-				}, 1000);
-			}
+				if (minutes === 0 && seconds === 0) {
+					isWorking = !isWorking;
+               	    clearInterval(timerInterval);
+					startTimer();
+					workAudio();
+				} else {
+					setTimeout(function() {
+						
+					},1000);
+				}
+			}, 1000);
+		}
 
 		//一時停止ボタンを押した時の関数
 		function pauseTimer() {
